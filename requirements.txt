@@ -1,0 +1,15 @@
+python3.9
+numpy
+requests
+tflite-runtime 
+opencv-python-headless 
+adafruit-circuitpython-pca9685
+pywatchdog
+
+
+
+
+
+
+
+
