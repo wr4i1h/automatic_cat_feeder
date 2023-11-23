@@ -3,13 +3,9 @@ import json
 #import servo
 
 import collections
-
-
 import numpy as np
-#import tflite
-#import tensorflow as tf
-import tflite_runtime.interpreter
-#import tflite_runtime.interpreter as tflite
+import tflite_runtime
+
 
 
 model_path = "/home/pi/automatic_cat_feeder/models/model2.tflite"

@@ -1,6 +1,6 @@
 
 import cv2  
-import os
+#import os
 import time
 
 
@@ -67,14 +67,12 @@ def fetch_frame(initial_time):
         
         var_motion = 0        
 
-        gray_image = cv2.cvtColor(cur_frame, cv2.COLOR_BGR2GRAY)  
-        gray_frame = cv2.GaussianBlur(gray_image, (21, 21), 0)  
 
         if initialState is None:  
-            initialState = gray_frame  
+            initialState = cur_frame  
             continue  
 
-        differ_frame = cv2.absdiff(initialState, gray_frame)  
+        differ_frame = cv2.absdiff(initialState, cur_frame)  
         thresh_frame = cv2.threshold(differ_frame, 30, 255, cv2.THRESH_BINARY)[1]  
         thresh_frame = cv2.dilate(thresh_frame, None, iterations = 2)  
 
@@ -106,46 +104,8 @@ def fetch_frame(initial_time):
 
     
         if (motionTrackList[-1] == 1 and motionTrackList[-2] == 0) or (motionTrackList[-1] == 0 and motionTrackList[-2] == 1):                
-            #motionTime.append(datetime.datetime.now())  
-            frames = []
-        
-            #frame = resize_frame(cur_frame)
+            identify_cat(cur_frame, interpreter)    
             
-            #frames.append(frame)
-                        
-            
-            #for _ in range (10):
-                #time.sleep(0.2)
-                #check, frame = video.read()
-                #if check:
-                    #frame = resize_frame(frame)
-                    #frames.append(frame)
-                
-             
-            #cat = identify_cat.identify(frame, interpreter)
-    
-            #print(cat)
-            
-            cv2.imwrite(input_folder + f"/{str(year) + str(month) + str(day)}-{str(hour) + str(minute) + str(second)}.jpg", cur_frame)
-            
-            for i in range (10):
-                time.sleep(0.1)
-                check, frame = video.read()
-                if check:
-                    cv2.imwrite(input_folder + f"/{str(year) + str(month) + str(day)}-{str(hour) + str(minute) + str(second)}/{str(i)}.jpg", frame)
-
-                    
-
-
-            
-            #servo.open_bowl(cat)
-
-    
-
-            #cat = 'cat'
-            
-            
-            #return flip_frame
 
 
         #if motionTrackList[-1] == 0 and motionTrackList[-2] == 1:  
@@ -159,6 +119,16 @@ def resize_frame(frame):
     frame = (frame / 255.).astype("float32").reshape(1, 400, 400, 3)
     
     return frame
+
+def identify_cat(frame, interpreter)   
+    frame = resize_frame(cur_frame)
+    cat = identify_cat.identify(frame, interpreter)
+    print(cat)
+
+    #cv2.imwrite(input_folder + f"/{str(year) + str(month) + str(day)}-{str(hour) + str(minute) + str(second)}.jpg", cur_frame)
+    #servo.open_bowl(cat)
+    #cat = 'cat'
+
 
             
 
